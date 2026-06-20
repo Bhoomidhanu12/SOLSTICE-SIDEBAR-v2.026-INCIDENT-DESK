@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solstice Sidebar: AI Incident Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ═══ LOGIN SCREEN ═══ -->
+    <section id="screen-login" class="screen active">
+      <div class="terminal-window login-window">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">SOLSTICE SIDEBAR v2.026 — INCIDENT DESK</span>
+        </div>
+        <div class="terminal-body login-body">
+          <pre class="ascii-logo" aria-hidden="true">
+   ☀ ─────────────────────────── ☀
+      S O L S T I C E   S I D E B A R
+         A I   I N C I D E N T   D E S K
+   ☾ ─────────────────────────── ☾
+          </pre>
+          <p class="login-tagline">June 21, 2026 · Final Shift · Cosmic Turning Point Imminent</p>
+          <p class="login-desc">
+            You are the Incident Commander. Three rogue AI subsystems are melting down under peak daylight
+            anomalies and June holiday traffic. Keep <strong>Corporate Approval</strong> and
+            <strong>AI Core Stability</strong> above zero until Midnight resets the sun.
+          </p>
+          <div class="login-actions">
+            <button id="btn-configure-key" class="btn btn-secondary">Configure Gemini API Key</button>
+            <button id="btn-start-shift" class="btn btn-primary">Start Shift</button>
+          </div>
+          <p id="key-status" class="key-status">No API key configured — local evaluation fallback active.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ GAMEPLAY SCREEN ═══ -->
+    <section id="screen-gameplay" class="screen">
+      <header class="game-header">
+        <div class="header-left">
+          <h1 class="game-title">Incident Desk</h1>
+          <span class="game-date">June 21, 2026</span>
+        </div>
+        <div class="header-center">
+          <div class="clock-block">
+            <span class="clock-label">Solstice Clock</span>
+            <span id="solstice-clock" class="solstice-clock">08:00 PM</span>
+          </div>
+          <div class="daylight-block">
+            <div class="daylight-header">
+              <span class="daylight-label">Daylight Depletion</span>
+              <span id="daylight-percent" class="daylight-percent">100%</span>
+            </div>
+            <div class="progress-track daylight-track">
+              <div id="daylight-bar" class="progress-fill daylight-fill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="header-right">
+          <span id="shift-timer" class="shift-timer">Shift: 01:30</span>
+        </div>
+      </header>
+
+      <main class="game-main">
+        <aside class="incident-sidebar">
+          <div class="sidebar-header">
+            <h2>Active Queue</h2>
+            <span id="queue-count" class="queue-badge">0</span>
+          </div>
+          <div id="incident-queue" class="incident-queue">
+            <p class="queue-empty">No active incidents. Enjoy this suspicious calm.</p>
+          </div>
+        </aside>
+
+        <section class="workspace">
+          <div id="workspace-empty" class="workspace-empty">
+            <div class="workspace-icon">📋</div>
+            <h2>Select an Incident</h2>
+            <p>Click an alert from the queue to load remediation protocols.</p>
+          </div>
+          <div id="workspace-active" class="workspace-active hidden">
+            <div class="workspace-header">
+              <span id="ws-system-badge" class="system-badge"></span>
+              <span id="ws-severity" class="severity-badge"></span>
+            </div>
+            <h2 id="ws-title" class="ws-title"></h2>
+            <p id="ws-description" class="ws-description"></p>
+            <div class="telemetry-box">
+              <span class="telemetry-label">TELEMETRY</span>
+              <pre id="ws-telemetry" class="ws-telemetry"></pre>
+            </div>
+            <h3 class="protocol-heading">Remediation Protocol Matrix</h3>
+            <div id="protocol-grid" class="protocol-grid"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="game-footer">
+        <div class="metric-block">
+          <div class="metric-header">
+            <span class="metric-label approval-label">Corporate Approval</span>
+            <span id="metric-approval-val" class="metric-value">60%</span>
+          </div>
+          <div class="progress-track">
+            <div id="metric-approval-bar" class="progress-fill approval-fill" style="width:60%"></div>
+          </div>
+        </div>
+        <div class="metric-block">
+          <div class="metric-header">
+            <span class="metric-label stability-label">AI Core Stability</span>
+            <span id="metric-stability-val" class="metric-value">65%</span>
+          </div>
+          <div class="progress-track">
+            <div id="metric-stability-bar" class="progress-fill stability-fill" style="width:65%"></div>
+          </div>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ═══ END EVALUATION SCREEN ═══ -->
+    <section id="screen-end" class="screen">
+      <div class="terminal-window end-window">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">SHIFT TERMINATION — EVALUATION PROTOCOL</span>
+        </div>
+        <div class="terminal-body end-body">
+          <div id="end-result" class="end-result"></div>
+          <div class="handover-section">
+            <label for="handover-report" class="handover-label">Official Shift Handover Summary Report</label>
+            <textarea id="handover-report" class="handover-textarea" rows="6"
+              placeholder="Document your incident response decisions, metric outcomes, and any outstanding daylight anomalies for the incoming shift commander..."></textarea>
+          </div>
+          <button id="btn-transmit" class="btn btn-primary">Transmit to Gemini Manager</button>
+          <div id="evaluation-output" class="evaluation-output hidden">
+            <span class="eval-label">MANAGER EVALUATION</span>
+            <div id="evaluation-text" class="evaluation-text"></div>
+          </div>
+          <button id="btn-restart" class="btn btn-secondary restart-btn">Return to Login</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ API KEY MODAL ═══ -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Gemini API Key Configuration</h3>
+          <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">
+            Enter your Google Gemini API key for live manager evaluation at Midnight.
+            Stored locally in your browser only.
+          </p>
+          <input type="password" id="api-key-input" class="api-key-input"
+            placeholder="AIza..." autocomplete="off">
+          <div class="modal-actions">
+            <button id="btn-save-key" class="btn btn-primary">Save Key</button>
+            <button id="btn-clear-key" class="btn btn-secondary">Clear Key</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DIALOGUE LOG POPUP ═══ -->
+    <div id="dialogue-overlay" class="dialogue-overlay hidden">
+      <div class="dialogue-popup">
+        <div class="dialogue-header">
+          <span id="dialogue-icon" class="dialogue-icon"></span>
+          <span id="dialogue-title" class="dialogue-title"></span>
+        </div>
+        <p id="dialogue-body" class="dialogue-body"></p>
+        <button id="dialogue-dismiss" class="btn btn-primary">Acknowledge</button>
+      </div>
+    </div>
+
+    <!-- ═══ GAME OVER OVERLAY ═══ -->
+    <div id="gameover-overlay" class="gameover-overlay hidden">
+      <div class="gameover-popup">
+        <h2>⚡ SYSTEM OVERLOAD</h2>
+        <p id="gameover-reason"></p>
+        <button id="btn-gameover-continue" class="btn btn-secondary">View Evaluation</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
